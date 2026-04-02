@@ -13,3 +13,5 @@ function ProfileCard({ name, age, bio }) {
 }
 
 export default ProfileCard;
+
+<ProfileCard name="Hallo Cassandra" age="35"/>

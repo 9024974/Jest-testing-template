@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import SearchBar from './SearchBar';
+import React from 'react';
 
 describe('SearchBar', () => {
 
@@ -12,32 +13,47 @@ describe('SearchBar', () => {
 
   test('update input bij typen', () => {
     // TODO: Render SearchBar
+     render(<SearchBar />);
     // TODO: Vind de input (Hint: screen.getByPlaceholderText('Zoek...'))
+    const input = screen.getByPlaceholderText('Zoek...');
     // TODO: Type tekst in input (Hint: fireEvent.change(input, { target: { value: 'React' } }))
+    fireEvent.change(input, { target: { value: 'React' } })
     // TODO: Check of input.value 'React' is
-    expect(true).toBe(false); // Deze test faalt! Vervang met je eigen test
+    expect(input.value).toBe('React'); // Deze test faalt! Vervang met je eigen test
   });
 
   test('toont zoekterm onder de input', () => {
     // TODO: Render SearchBar
+    render(<SearchBar />);
     // TODO: Type 'Jest' in de input
+    const input = screen.getByPlaceholderText('Zoek...');
     // TODO: Check of "Zoeken naar: Jest" op het scherm staat
-    expect(true).toBe(false); // Deze test faalt! Vervang met je eigen test
+    fireEvent.change(input, { target: { value: 'Jest' } })
+    expect(screen.getByText('Zoeken naar: Jest')).toBeInTheDocument(); // Deze test faalt! Vervang met je eigen test
   });
 
   test('toont wissen button als er tekst is', () => {
     // TODO: Render SearchBar
+    render(<SearchBar />);
     // TODO: Type tekst in input
+    const input = screen.getByPlaceholderText('Zoek...');
     // TODO: Check of button met tekst "Wissen" verschijnt
-    expect(true).toBe(false); // Deze test faalt! Vervang met je eigen test
+     expect(screen.queryByText('Wissen')).not.toBeInTheDocument();
+      fireEvent.change(input, { target: { value: 'React' } });
+    expect(screen.getByText('Wissen')).toBeInTheDocument(); // Deze test faalt! Vervang met je eigen test
   });
 
   test('wissen button maakt input leeg', () => {
     // TODO: Render SearchBar
+    render(<SearchBar />);
     // TODO: Type tekst in input
+    const input = screen.getByPlaceholderText('Zoek...');
+      fireEvent.change(input, { target: { value: 'React' } });
     // TODO: Klik op "Wissen" button
+    const button = screen.getByText('Wissen');
+  fireEvent.click(button);
     // TODO: Check of input leeg is (value = '')
-    expect(true).toBe(false); // Deze test faalt! Vervang met je eigen test
+    expect(input.value).toBe(''); // Deze test faalt! Vervang met je eigen test
   });
 
 });
